@@ -2,7 +2,7 @@
 // global-error must include html and body tags
 "use client";
 
-import { DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { Button } from "@components/ui/button";
 import {
     Card,
@@ -15,9 +15,16 @@ import { cn } from "src/core/utils/components";
 
 import "./globals.css";
 
-const dm_sans = DM_Sans({
-    subsets: ["latin"],
-    preload: true,
+// 使用本地字体，避免构建时访问 Google Fonts
+const dm_sans = localFont({
+    src: [
+        { path: "../../public/fonts/dm-sans-400.woff2", weight: "400", style: "normal" },
+        { path: "../../public/fonts/dm-sans-500.woff2", weight: "500", style: "normal" },
+        { path: "../../public/fonts/dm-sans-600.woff2", weight: "600", style: "normal" },
+        { path: "../../public/fonts/dm-sans-700.woff2", weight: "700", style: "normal" },
+    ],
+    variable: "--font-dm-sans",
+    display: "swap",
 });
 
 export default function GlobalError({

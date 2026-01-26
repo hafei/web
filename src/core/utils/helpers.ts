@@ -53,23 +53,15 @@ export function createUrl(
     const webNodeEnv = RUNTIME_CONFIG.WEB_NODE_ENV;
     const isProduction = webNodeEnv === "production";
 
-    if (
-        isProduction ||
-        (isSelfHosted &&
-            hostName !== "localhost" &&
-            hostName !== config.containerName)
-    ) {
-        // Cases: Production OR (SelfHosted with a specific domain)
+    // Production mode (cloud deployment): use https without port
+    if (isProduction) {
         protocol = "https";
         finalPort = "";
     } else {
-        // Cases: Development OR (SelfHosted running on localhost)
-        // Also implicitly covers isDevelopment(), because if it's not production nor self-hosted with a domain,
-        // and isDevelopment() is true, it will fall here.
-        // If it's self-hosted and hostname === "localhost", it will also fall here.
-
+        // Self-hosted or Development: respect the provided protocol and port
         const HTTP = "http://";
         const HTTPS = "https://";
+
         if (hostName?.includes(HTTP)) {
             protocol = "http";
             hostName = hostName.replace(HTTP, "");
@@ -77,6 +69,7 @@ export function createUrl(
             protocol = "https";
             hostName = hostName.replace(HTTPS, "");
         } else {
+            // Default to http for self-hosted/development
             protocol = "http";
         }
 
