@@ -7,3 +7,6 @@ npm-debug.log
 .git
 .gitignore
 .next
+
+.env
+.env.*

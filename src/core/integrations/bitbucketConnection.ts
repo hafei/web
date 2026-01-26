@@ -1,6 +1,5 @@
 import { IIntegrationConnector } from "./IIntegrationConnector";
-
-const bitbucket = process.env.WEB_BITBUCKET_INSTALL_URL || "";
+import { RUNTIME_CONFIG } from "../config/runtime-config";
 
 export class BitbucketConnection implements IIntegrationConnector {
     async connect(
@@ -11,10 +10,10 @@ export class BitbucketConnection implements IIntegrationConnector {
         if (hasConnection) {
             routerConfig.push(
                 routerPath ||
-                    `${routerConfig.pathname}/bitbucket/configuration`,
+                `${routerConfig.pathname}/bitbucket/configuration`,
             );
         } else {
-            window.location.href = bitbucket;
+            window.location.href = RUNTIME_CONFIG.WEB_BITBUCKET_INSTALL_URL || "";
         }
     }
 }

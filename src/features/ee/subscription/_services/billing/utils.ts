@@ -1,4 +1,5 @@
 import { typedFetch } from "@services/fetch";
+import { RUNTIME_CONFIG } from "src/core/config/runtime-config";
 import { createUrl } from "src/core/utils/helpers";
 import { isServerSide } from "src/core/utils/server-side";
 
@@ -6,7 +7,7 @@ export const billingFetch = async <Data>(
     _url: Parameters<typeof typedFetch>[0],
     config?: Parameters<typeof typedFetch>[1],
 ): Promise<Data> => {
-    let hostName = process.env.WEB_HOSTNAME_BILLING;
+    let hostName = RUNTIME_CONFIG.WEB_HOSTNAME_BILLING;
 
     // if 'true' we are in the server and hostname is not a domain
     if (isServerSide && hostName === "localhost") {
@@ -15,7 +16,7 @@ export const billingFetch = async <Data>(
             "kodus-service-billing";
     }
 
-    const port = process.env.WEB_PORT_BILLING;
+    const port = RUNTIME_CONFIG.WEB_PORT_BILLING;
     const url = createUrl(hostName, port, `/api/billing/${_url}`);
 
     try {

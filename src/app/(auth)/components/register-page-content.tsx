@@ -27,6 +27,7 @@ import {
 import type { TODO } from "src/core/types";
 import { cn } from "src/core/utils/components";
 import { checkForEmailExistence, registerUser } from "src/lib/auth/fetchers";
+import { RUNTIME_CONFIG } from "src/core/config/runtime-config";
 import { z } from "zod";
 
 import { OAuthButtons } from "./oauth";
@@ -270,7 +271,7 @@ const WithEmail = () => {
                                                 setTypePassword(
                                                     (typePassword) =>
                                                         typePassword ===
-                                                        "password"
+                                                            "password"
                                                             ? "text"
                                                             : "password",
                                                 )
@@ -300,7 +301,7 @@ const WithEmail = () => {
                                                     "flex items-center gap-1 rounded-full px-2 py-1",
                                                     "border border-[#6A57A433]",
                                                     rule.valid &&
-                                                        "border-success/20",
+                                                    "border-success/20",
                                                 )}>
                                                 <div className="w-3 text-center">
                                                     {rule.valid ? (
@@ -313,7 +314,7 @@ const WithEmail = () => {
                                                 <span
                                                     className={cn(
                                                         rule.valid &&
-                                                            "text-success-foreground",
+                                                        "text-success-foreground",
                                                     )}>
                                                     {rule.text}
                                                 </span>
@@ -375,7 +376,7 @@ const WithEmail = () => {
                     By signing up, you agree to the{" "}
                     <Link
                         target="blank"
-                        href={process.env.WEB_TERMS_AND_CONDITIONS ?? ""}>
+                        href={RUNTIME_CONFIG.WEB_TERMS_AND_CONDITIONS ?? ""}>
                         Terms & Conditions.
                     </Link>
                 </div>
@@ -396,11 +397,11 @@ const formSchema = z
                 error: "Name can only contain letters, spaces, hyphens and apostrophes"
             }),
         email: z.email({
-                        error: "Invalid email address"
-                    })
-                    .min(1, {
-                        error: "Enter your email"
-                    })
+            error: "Invalid email address"
+        })
+            .min(1, {
+                error: "Enter your email"
+            })
             .refine(
                 (email) => {
                     const [, domain] = email.split("@");

@@ -7,6 +7,8 @@ import type { CookieName } from "src/core/utils/cookie";
 import { getGlobalSelectedTeamId } from "src/core/utils/get-global-selected-team-id";
 import { greeting } from "src/core/utils/helpers";
 
+import { RUNTIME_CONFIG } from "src/core/config/runtime-config";
+
 import { validateOrganizationLicense } from "../subscription/_services/billing/fetch";
 import { DateRangePicker } from "./_components/date-range-picker";
 import { ExpandableCardsLayout } from "./_components/expandable-cards-layout";
@@ -48,7 +50,7 @@ export default async function Layout({
     flowMetrics: React.ReactNode;
     kodySuggestionsAnalytics: React.ReactNode;
 }) {
-    if (!process.env.WEB_ANALYTICS_SECRET) {
+    if (!RUNTIME_CONFIG.WEB_ANALYTICS_SECRET) {
         return <AnalyticsNotAvailable />;
     }
 

@@ -1,5 +1,6 @@
 import { typedFetch } from "@services/fetch";
 import { getOrganizationId } from "@services/organizations/fetch";
+import { RUNTIME_CONFIG } from "src/core/config/runtime-config";
 import { createUrl } from "src/core/utils/helpers";
 import { isServerSide } from "src/core/utils/server-side";
 
@@ -15,15 +16,15 @@ export const analyticsFetch = async <Data>(
         getSelectedRepository(),
     ]);
 
-    if (!process.env.WEB_ANALYTICS_SECRET) {
+    if (!RUNTIME_CONFIG.WEB_ANALYTICS_SECRET) {
         console.warn(
             "WEB_ANALYTICS_SECRET is not configured. Analytics requests will be skipped.",
         );
         return null as Data;
     }
 
-    let hostName = process.env.WEB_ANALYTICS_HOSTNAME;
-    let port = process.env.WEB_PORT_ANALYTICS;
+    let hostName = RUNTIME_CONFIG.WEB_ANALYTICS_HOSTNAME;
+    let port = RUNTIME_CONFIG.WEB_PORT_ANALYTICS;
 
     // if 'true' we are in the server and hostname is not a domain
     if (isServerSide && hostName === "localhost") {
@@ -48,7 +49,7 @@ export const analyticsFetch = async <Data>(
             params,
             headers: {
                 ...options?.headers,
-                "x-api-key": process.env.WEB_ANALYTICS_SECRET,
+                "x-api-key": RUNTIME_CONFIG.WEB_ANALYTICS_SECRET,
             },
         });
     } catch (error) {

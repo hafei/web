@@ -10,6 +10,7 @@ import { type ApiRoute } from "../config/constants";
 import { type LiteralUnion } from "../types";
 import { isSelfHosted } from "../utils/self-hosted";
 import { isServerSide } from "./server-side";
+import { RUNTIME_CONFIG } from "../config/runtime-config";
 
 const containerName = process.env.GLOBAL_API_CONTAINER_NAME || "kodus_api";
 
@@ -19,7 +20,7 @@ export function pathToApiUrl(
 ): string {
     invariant(path, "Api path doesn't exist");
 
-    let hostName = process.env.WEB_HOSTNAME_API;
+    let hostName = RUNTIME_CONFIG.WEB_HOSTNAME_API;
 
     // if 'true' we are in the server and hostname is not a domain
     if (isServerSide && hostName === "localhost") {
@@ -32,7 +33,7 @@ export function pathToApiUrl(
         });
     }
 
-    const port = process.env.WEB_PORT_API;
+    const port = RUNTIME_CONFIG.WEB_PORT_API;
 
     return createUrl(hostName, port, path);
 }
@@ -49,7 +50,8 @@ export function createUrl(
     const defaultOptions = { containerName };
     const config = { ...defaultOptions, ...options };
 
-    const isProduction = process.env.WEB_NODE_ENV === "production";
+    const webNodeEnv = RUNTIME_CONFIG.WEB_NODE_ENV;
+    const isProduction = webNodeEnv === "production";
 
     if (
         isProduction ||

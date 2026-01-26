@@ -1,6 +1,6 @@
 import { IIntegrationConnector } from "./IIntegrationConnector";
 
-const github = process.env.WEB_GITHUB_INSTALL_URL || "";
+import { RUNTIME_CONFIG } from "../config/runtime-config";
 
 export class GitHubConnection implements IIntegrationConnector {
     async connect(
@@ -13,7 +13,7 @@ export class GitHubConnection implements IIntegrationConnector {
                 routerPath || `${routerConfig.pathname}/github/configuration`,
             );
         } else {
-            window.location.href = github;
+            window.location.href = RUNTIME_CONFIG.WEB_GITHUB_INSTALL_URL || "";
         }
     }
 }
