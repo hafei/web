@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Spinner } from "@components/ui/spinner";
+import { ErrorBoundary } from "react-error-boundary";
 
 const NoSSRGithubStars = dynamic(
     () =>
@@ -15,5 +16,9 @@ const NoSSRGithubStars = dynamic(
 );
 
 export const SetupGithubStars = () => {
-    return <NoSSRGithubStars />;
+    return (
+        <ErrorBoundary fallback={null}>
+            <NoSSRGithubStars />
+        </ErrorBoundary>
+    );
 };
