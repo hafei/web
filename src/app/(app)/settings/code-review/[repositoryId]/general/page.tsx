@@ -38,6 +38,7 @@ import { IsRequestChangesActive } from "./_components/is-request-changes-active"
 import { KodusConfigFileOverridesWebPreferences } from "./_components/kodus-config-file-overrides-web-preferences";
 import { LanguageSelector } from "./_components/language-selector";
 import { PullRequestApprovalActive } from "./_components/pull-request-approval-active";
+import { ReviewModeConfigCard } from "./_components/review-mode-config";
 import { RunOnDraft } from "./_components/run-on-draft";
 
 export default function General() {
@@ -216,6 +217,7 @@ export default function General() {
             </Page.Header>
 
             <Page.Content>
+                {repositoryId === "global" && <ReviewModeConfigCard />}
                 <AutomatedReviewActive />
                 <KodusConfigFileOverridesWebPreferences />
                 <PullRequestApprovalActive />

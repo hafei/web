@@ -1,4 +1,7 @@
-import { OrganizationParametersConfigKey } from "@services/parameters/types";
+import {
+    OrganizationParametersConfigKey,
+    ReviewModeConfig,
+} from "@services/parameters/types";
 import { useSuspenseFetch } from "src/core/utils/reactQuery";
 import type { BYOKConfig } from "src/features/ee/byok/_types";
 
@@ -34,6 +37,22 @@ export function useSuspenseGetBYOK() {
         {
             params: {
                 key: OrganizationParametersConfigKey.BYOK_CONFIG,
+            },
+        },
+        {
+            fallbackData: null,
+        },
+    );
+}
+
+export function useSuspenseGetReviewModeConfig() {
+    return useSuspenseFetch<
+        { configValue: { reviewMode: ReviewModeConfig } } | null
+    >(
+        ORGANIZATION_PARAMETERS_PATHS.GET_BY_KEY,
+        {
+            params: {
+                key: OrganizationParametersConfigKey.REVIEW_MODE_CONFIG,
             },
         },
         {

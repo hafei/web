@@ -10,8 +10,15 @@ export enum OrganizationParametersConfigKey {
     TIMEZONE_CONFIG = "timezone_config",
     AUTO_JOIN_CONFIG = "auto_join_config",
     BYOK_CONFIG = "byok_config",
+    REVIEW_MODE_CONFIG = "review_mode_config",
     COCKPIT_METRICS_VISIBILITY = "cockpit_metrics_visibility",
     AUTO_LICENSE_ASSIGNMENT = "auto_license_assignment",
+}
+
+export enum ReviewModeConfig {
+    LIGHT_MODE_FULL = "light_mode_full",
+    LIGHT_MODE_PARTIAL = "light_mode_partial",
+    HEAVY_MODE = "heavy_mode",
 }
 
 export enum BoardPriorityType {
