@@ -13,6 +13,7 @@ import {
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -80,6 +81,9 @@ export const GitlabModal = (props: Props) => {
                     <DialogTitle>
                         <span>Gitlab</span> - New Integration
                     </DialogTitle>
+                    <DialogDescription>
+                        Connect Gitlab via OAuth or a personal access token.
+                    </DialogDescription>
                 </DialogHeader>
 
                 <Tabs defaultValue="oauth">
@@ -134,22 +138,26 @@ export const GitlabModal = (props: Props) => {
                                 open={selfhosted}
                                 onOpenChange={(s) => setSelfhosted(s)}
                                 className="mt-4 flex flex-col gap-1">
-                                <CollapsibleTrigger asChild>
-                                    <Button
-                                        type="button"
-                                        variant="helper"
-                                        size="lg"
-                                        className="w-full items-center justify-between py-4">
-                                        <FormControl.Label className="mb-0">
-                                            Self-hosted
-                                        </FormControl.Label>
+                                <div className="relative">
+                                    <CollapsibleTrigger asChild>
+                                        <Button
+                                            type="button"
+                                            variant="helper"
+                                            size="lg"
+                                            className="w-full items-center justify-between py-4">
+                                            <FormControl.Label className="mb-0">
+                                                Self-hosted
+                                            </FormControl.Label>
+                                        </Button>
+                                    </CollapsibleTrigger>
 
+                                    <div className="pointer-events-none absolute inset-y-0 right-6 flex items-center">
                                         <Switch
                                             decorative
                                             checked={selfhosted}
                                         />
-                                    </Button>
-                                </CollapsibleTrigger>
+                                    </div>
+                                </div>
 
                                 <CollapsibleContent>
                                     <Card color="lv1">
